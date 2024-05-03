@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LogicService } from '../logic.service';
 import { TaskAddComponent } from './task-add.component';
@@ -53,6 +53,7 @@ describe('TaskAddComponent', () => {
       expect(formBuilderStub.group).toHaveBeenCalled();
     });
   });
+
   describe('submitHandler', () => {
     it('makes expected calls', () => {
       const logicServiceStub: LogicService =
@@ -63,4 +64,19 @@ describe('TaskAddComponent', () => {
       expect(spyAddTask).toHaveBeenCalled();
     });
   });
+
+  describe('submitButton', () => {
+    it('should be disabled on invalid form', fakeAsync(() => {
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(fixture.debugElement.nativeElement.querySelector('button[type="submit"]').disabled).toBeTruthy();
+    }));
+
+    it('should be enable on valid form', fakeAsync(() => {
+      component.ngOnInit();
+      component.form.get('text').setValue('aaaa');
+      tick();
+      expect(fixture.debugElement.nativeElement.querySelector('button[type="submit"]').disabled).toBeFalsy();
+    }))
+  })
 });

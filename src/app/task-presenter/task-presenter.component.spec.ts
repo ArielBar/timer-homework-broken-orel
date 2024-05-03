@@ -45,4 +45,20 @@ describe('TaskPresenterComponent', () => {
     // Assert
     expect(fixture.nativeElement).toMatchSnapshot();
   });
+
+  it('should display name in uppercase', () => {
+    const text = 'test1';
+    component.task = { id: 1, name: text, buttonText: 'pause', timer: of(1) };
+    fixture.detectChanges();
+    const element = fixture.nativeElement.querySelector('.input-name');
+    expect(element.textContent).toContain(text.toUpperCase());
+  });
+
+  it('should emit clicked event when button is clicked', () => {
+    component.task = { id: 1, name: 'test', buttonText: 'pause', timer: of(1) };
+    const emitSpy = jest.spyOn(component.clicked, 'emit');
+    const buttonElement: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    buttonElement.click();
+    expect(emitSpy).toHaveBeenCalled();
+  });
 });

@@ -22,4 +22,8 @@ export class TaskContainerComponent implements OnInit {
   public onClick(evt: TaskModel) {
     this.service.updateTask(evt);
   }
+
+  public itemTrackBy(index: number, item: TaskModel) {
+    return item.id;
+  }
 }

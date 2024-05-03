@@ -8,4 +8,13 @@ describe('TaskFactoryService', () => {
     const service: TaskFactoryService = TestBed.get(TaskFactoryService);
     expect(service).toBeTruthy();
   });
+
+  it('should increment the counter by 1 while onIncrement function executed', () => {
+    const service: TaskFactoryService = TestBed.get(TaskFactoryService);
+    const initialValue = (service as any).counter;
+    (service as any).incrementCounter();
+    const updatedValue = (service as any).counter;
+    expect(updatedValue).toBe(initialValue + 1);
+  })
+
 });
