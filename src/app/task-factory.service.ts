@@ -16,15 +16,19 @@ export class TaskFactoryService {
       name: name,
       timer: this.timersService.getTimer(this.counter),
     };
+
     this.incrementCounter();
     return task;
   }
+
   public play(id: number) {
     this.timersService.playTimer(id);
   }
+
   public pause(id: number) {
     this.timersService.pauseTimer(id);
   }
+  
   private incrementCounter() {
     this.counter += 1;
   }
